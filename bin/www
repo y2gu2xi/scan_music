@@ -9,6 +9,8 @@ var debug = require('debug')('scan-music:server');
 var http = require('http');
 var robot = require("robotjs");
 
+var isPlay = false;
+
 // Speed up the mouse.
 robot.setMouseDelay(2000);
 
@@ -27,13 +29,31 @@ var server = http.createServer(app);
 
 var io = require('socket.io')(server);
 
+var canStop = false;
 
 io.on('connection', function(socket){
 
+
     socket.on('next', function(msg,fn){
-      console.log('i do')
-        robot.keyTap('right',['command'])
-        fn('已阅')
+        if(canStop){
+            robot.keyTap('left',['command'])
+            return;
+        }
+
+        if(isPlay){
+            robot.keyTap('right',['command'])
+            fn('next')
+            canStop = true
+            setTimeout(function(){
+                canStop = false;
+            },5000)
+        }else{
+            robot.keyTap('left',['command'])
+            fn('play')
+            isPlay = true;
+            canStop = true
+        }
+
     });
 
 });
