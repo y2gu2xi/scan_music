@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+      <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    {{{body}}}
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script>
+        var socket = io();
+        setTimeout(function(){
+            wx.closeWindow()
+        },2000)
+        socket.emit('next',null,function(){
+        })
+    </script>
+  </body>
+</html>
