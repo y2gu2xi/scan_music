@@ -7,13 +7,10 @@
 var app = require('../app');
 var debug = require('debug')('scan-music:server');
 var http = require('http');
-var robot = require("robotjs");
 
 var isPlay = false;
 
 // Speed up the mouse.
-robot.setMouseDelay(2000);
-
 /**
  * Get port from environment and store in Express.
  */
