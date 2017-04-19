@@ -1,0 +1,13 @@
+<h1>Server</h1>
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+    var socket = io();
+    var socket2 = io('http://localhost:3004');
+    setTimeout(function(){
+        wx.closeWindow()
+    },2000)
+    socket.on('remote',function(data){
+        socket2.emit(data,'remote control',function(){})
+    })
+</script>

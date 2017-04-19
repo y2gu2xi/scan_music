@@ -18,7 +18,7 @@ robot.setMouseDelay(2000);
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3005');
+var port = normalizePort(process.env.PORT || '3004');
 app.set('port', port);
 
 /**
@@ -28,17 +28,36 @@ app.set('port', port);
 var server = http.createServer(app);
 
 var io = require('socket.io')(server);
+var redis = require('socket.io-redis');
+io.adapter(redis({host: 'localhost', port: 6379}));
+
+var canStop = false;
 
 io.on('connection', function (socket) {
 
-    socket.on('next', function (msg, fn) {
 
-        socket.broadcast.emit('remote', 'next')
+    socket.on('next', function (msg, fn) {
+        if (canStop) {
+            robot.keyTap('left', ['control', 'alt'])
+            return;
+        }
+
+        if (isPlay) {
+            robot.keyTap('right', ['control', 'alt'])
+            if (fn) fn('next')
+            canStop = true
+            setTimeout(function () {
+                canStop = false;
+            }, 5000)
+        } else {
+            robot.keyTap('left', ['control', 'alt'])
+            isPlay = true;
+            canStop = true
+        }
 
     });
 
 });
-
 
 /**
  * Listen on provided port, on all network interfaces.
