@@ -26,7 +26,7 @@
 
 $(function(){
 
-    $('.play').on('click',function(e){
+    $('.btn-op').on('click',function(e){
        socket.emit(e.currentTarget.dataset.op)
     })
 })
