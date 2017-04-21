@@ -37,8 +37,8 @@ io.on('connection', function (socket) {
 
 
     socket.on('play', function (msg, fn) {robot.keyTap('right', ['control'])});
-    socket.on('next', function (msg, fn) {robot.keyTap('next', ['control','alt'])});
-    socket.on('prev', function (msg, fn) {robot.keyTap('prev', ['control','alt'])});
+    socket.on('next', function (msg, fn) {robot.keyTap('right', ['control','alt'])});
+    socket.on('prev', function (msg, fn) {robot.keyTap('left', ['control','alt'])});
     socket.on('up', function (msg, fn) {robot.keyTap('up', ['control','alt'])});
     socket.on('down', function (msg, fn) {robot.keyTap('down', ['control','alt'])});
 
