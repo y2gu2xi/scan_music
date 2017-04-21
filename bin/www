@@ -28,10 +28,20 @@ var io = require('socket.io')(server);
 
 io.on('connection', function (socket) {
 
-    socket.on('next', function (msg, fn) {
-
+    socket.on('play', function () {
+        socket.broadcast.emit('remote', 'play')
+    });
+    socket.on('up', function () {
+        socket.broadcast.emit('remote', 'up')
+    });
+    socket.on('down', function () {
+        socket.broadcast.emit('remote', 'down')
+    });
+    socket.on('prev', function () {
+        socket.broadcast.emit('remote', 'prev')
+    });
+    socket.on('next', function () {
         socket.broadcast.emit('remote', 'next')
-
     });
 
 });

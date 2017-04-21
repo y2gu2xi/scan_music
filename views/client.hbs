@@ -1,12 +1,75 @@
-<h1>Client</h1>
+<div class="ipod">
+    <button class="btn-op up" data-op="up">+</button>
+    <button class="btn-op down"  data-op="down">-</button>
+    <button class="btn-op right"  data-op="next">→</button>
+    <button class="btn-op left" data-op="prev">←</button>
+    <button class="btn-op play" data-op="play">play</button>
+</div>
+<img src="" alt="">
+<script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script>
-    var socket = io();
-    setTimeout(function(){
-        wx.closeWindow()
-    },2000)
-    socket.emit('next',null,function(){
+   var socket = io();
+
+
+
+//    socket.emit('next',null,function(){
+//    })
+
+
+
+   //    setTimeout(function(){
+   //        wx.closeWindow()
+   //    },2000)
+
+
+$(function(){
+
+    $('.play').on('click',function(e){
+       socket.emit(e.currentTarget.dataset.op)
     })
+})
 
 </script>
+<style>
+    .ipod{
+        width:300px;
+        height:300px;
+        text-align: center;
+        margin:auto;
+        background: url("images/timg.jpeg") no-repeat;
+        background-size: contain;
+        padding-left: 12px;
+        padding-top: 24px;
+        position: relative;
+    }
+    .btn-op{
+        width:50px;
+        height:50px;
+        background-color: #00B7FF;
+        position: absolute;
+        opacity: 0;
+
+    }
+    .up{
+        top:50px;
+        left:140px;
+    }
+    .down{
+        top:230px;
+        left:140px;
+    }
+    .left{
+        top:140px;
+        left:40px;
+    }
+    .right{
+        top:140px;
+        left:220px;
+    }
+    .play{
+        top:140px;
+        left:140px;
+    }
+</style>
